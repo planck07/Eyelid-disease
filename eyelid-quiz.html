@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Eyelid diseases quiz</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f2f8f9;--card:#fff;--ink:#10343d;--mute:#56747b;--line:#cfe0e3;--teal:#1b7f8c;--tealbg:#d9eef0;--bad:#a8402f;--good:#2b7a4b;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f2429;--card:#16333a;--ink:#e4f1f3;--mute:#9bb8be;--line:#2a4a52;--teal:#5cc3cf;--tealbg:#1f4a52;--bad:#f0a090;--good:#8bd3a6}}
+:root[data-theme="dark"]{--bg:#0f2429;--card:#16333a;--ink:#e4f1f3;--mute:#9bb8be;--line:#2a4a52;--teal:#5cc3cf;--tealbg:#1f4a52;--bad:#f0a090;--good:#8bd3a6}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.55 "Source Sans 3",system-ui,sans-serif}
+main{max-width:560px;margin:0 auto;padding:28px 18px 48px}
+h1{font:500 30px/1.15 Fraunces,Georgia,serif;margin:0 0 10px}
+p{margin:0 0 14px}
+.mute{color:var(--mute);font-size:15px}
+button{font:600 17px "Source Sans 3",system-ui,sans-serif;min-height:48px;padding:0 20px;border-radius:8px;border:1.5px solid var(--teal);background:var(--teal);color:#fff;cursor:pointer;width:100%}
+button.opt{background:var(--card);color:var(--ink);border:1.5px solid var(--line);text-align:left;margin:0 0 10px;padding:12px 16px;font-weight:400;height:auto;user-select:none}
+button.opt.sel{border-color:var(--teal);background:var(--tealbg)}
+button.alt{background:var(--card);color:var(--teal)}
+button:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+input{width:100%;min-height:48px;padding:0 14px;font:400 17px "Source Sans 3",system-ui,sans-serif;border:1.5px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);margin:0 0 14px}
+.err{color:var(--bad);font-size:15px;min-height:22px;margin:4px 0 10px}
+.top{display:flex;justify-content:space-between;font-size:15px;color:var(--mute)}
+.bar{height:5px;background:var(--line);border-radius:3px;margin:8px 0 22px}
+.bar i{display:block;height:5px;background:var(--teal);border-radius:3px}
+.q{font:500 22px/1.3 Fraunces,Georgia,serif;margin:0 0 18px;user-select:none}
+.row{display:flex;gap:10px;margin:0 0 12px}.row button{flex:1}
+.grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin:0 0 16px}
+button.qn{padding:0;min-height:46px;background:var(--card);color:var(--ink);border:1.5px solid var(--line)}
+button.qn.done{background:var(--teal);color:#fff;border-color:var(--teal)}
+button.qn.cur{box-shadow:0 0 0 3px var(--ink)}
+.rv{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:0 0 12px}
+.rv .rq{font-weight:600;margin:0 0 8px}
+.rv p{margin:0 0 6px;font-size:16px}
+.no{color:var(--bad)}.yes{color:var(--good)}
+.code{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px 14px;font-size:16px;word-break:break-word;margin:0 0 14px}
+a.btn{display:flex;align-items:center;justify-content:center;min-height:48px;border-radius:8px;background:var(--teal);color:#fff;text-decoration:none;font-weight:600;margin-top:4px}
+@media (prefers-reduced-motion:no-preference){.bar i{transition:width .25s}}
+</style>
+</head>
+<body>
+<main id="app"></main>
+<script>
+var WKEY="f9393b69-9fd1-45c3-bbf0-1e9ffa293d7b",CH=124362790,LIMIT=3000,SK="eyelid50";
+var Q=[
+["Which is NOT in the list of eyelid conditions of interest to the optometrist?",["Ptosis","Trichiasis","Glaucoma","Blepharospasm"],2,"The list covers ptosis, chalazia/hordeolum, ectropion, entropion, trichiasis, blepharitis, blepharospasm, dacryocystitis and canaliculitis, preseptal cellulitis and malignant eyelid tumours. Glaucoma isn't an eyelid disease. (Slide 2)"],
+["The malignant eyelid tumours listed are:",["BCC, AMD, SCC","BCC, SGC, SCC","SGC, DME, BCC","SCC, GCA, SGC"],1,"Basal cell carcinoma, sebaceous gland carcinoma and squamous cell carcinoma. AMD, DME and GCA are not eyelid tumours. (Slide 2)"],
+["The vast majority of ptosis cases are of what etiology?",["Malignant","Infectious","Benign","Traumatic only"],2,"Most ptosis is benign, but a few serious causes still have to be ruled out in every case. (Slide 4)"],
+["Which is NOT one of the four entities to rule out in every ptosis case?",["Horner syndrome","Dacryocystitis","Third cranial nerve palsy","Myasthenia gravis"],1,"The four are Horner syndrome, third cranial nerve palsy, myasthenia gravis, and superior eyelid or orbital malignancy. (Slide 5)"],
+["Ptosis with levator function under 10 mm and a weak or absent lid crease is:",["Aponeurotic","Mechanical","Myogenic","Traumatic"],2,"Poor levator function with a weak crease points to a muscle problem, which is myogenic ptosis. (Slide 6)"],
+["Which fits aponeurotic ptosis?",["High lid crease, ptosis of 3–4 mm, levator function 10–15 mm","Absent crease with levator function under 10 mm","Dilated pupil with the eye turned down and out","A retained contact lens"],0,"The levator muscle still works well (10–15 mm), but its tendon has stretched, giving a high crease and moderate ptosis. (Slide 6)"],
+["Aponeurotic ptosis may worsen in:",["Up gaze","Down gaze","Bright light","Lateral gaze only"],1,"It may worsen in down gaze. (Slide 6)"],
+["Third cranial nerve palsy causes which type of ptosis?",["Neurogenic","Myogenic","Mechanical","Pseudoptosis"],0,"The nerve supplying the levator is affected, so it is neurogenic. (Slide 6)"],
+["Which is a mechanical cause of ptosis?",["Hyperopia","Brow ptosis","A retained contact lens in the upper fornix","Duane syndrome"],2,"Mechanical causes are a retained contact lens in the upper fornix, upper eyelid inflammation, or a neoplasm. The other options cause pseudoptosis. (Slide 7)"],
+["Which can cause pseudoptosis?",["Dermatochalasis","Levator transection","Third nerve palsy","Myasthenia gravis"],0,"Excess skin makes the lid look low without a levator problem. The other options are true ptosis causes. (Slide 7)"],
+["Traumatic ptosis can follow:",["Contralateral eyelid retraction","Eyelid laceration with levator transection","Hyperopia","Microphthalmos"],1,"A cut or contusion of the levator, or tethering or ischemia in an orbital roof fracture, causes traumatic ptosis. The others cause pseudoptosis. (Slide 7)"],
+["Ipsilateral enophthalmos can cause:",["True ptosis","Chalazion","Ectropion","Pseudoptosis"],3,"The eye sits further back, so the lid looks lower, though the levator is fine. (Slide 7)"],
+["Which helps show when a patient's ptosis began?",["Old photographs, a driver's licence and relatives' opinions","Slit-lamp examination only","Tonometry","Visual fields"],0,"These are useful adjuncts to the history, to tell if it's been present since birth or is acute. (Slide 11)"],
+["What must always be documented in a ptosis work-up, even if normal?",["Colour vision","Pupil size and extraocular motility","Corneal thickness","Intraocular pressure"],1,"Abnormal pupils or motility would point to Horner syndrome or third nerve palsy. (Slide 12)"],
+["Which corneal protective factors are documented before ptosis surgery?",["Lagophthalmos, orbicularis function, Bell phenomenon, tear production","Visual acuity and refraction only","Colour vision only","Lens opacity"],0,"They show how well the cornea will cope if the lid is lifted. (Slide 13)"],
+["In the ice test, an ice pack is applied to the ptotic eye for:",["30 seconds","2 minutes","10 minutes","1 hour"],1,"Two minutes, after which the ptosis is reassessed. (Slide 14)"],
+["Improvement of ptosis after the ice test suggests:",["Horner syndrome","Aponeurotic ptosis","Chalazion","Myasthenia gravis"],3,"Cooling improves neuromuscular transmission, so improvement suggests myasthenia gravis. (Slide 14)"],
+["The neosynephrine test uses:",["1 drop of 2.5% phenylephrine","1 drop of 1% atropine","Fluorescein","Tropicamide 1%"],0,"Improvement after 5–7 minutes suggests a good candidate for correction by an internal approach. (Slide 14)"],
+["Non-surgical options for neurogenic and myogenic ptosis include:",["Laser treatment","Taping and eyelid crutches attached to glasses","Intravitreal injection","Enucleation"],1,"Observation, taping and crutches are the non-surgical options. (Slide 15)"],
+["Congenital ptosis needs close follow-up to monitor for:",["Cataract","Retinal detachment","Occlusion amblyopia and exposure keratopathy","Glaucoma"],2,"A low lid can block the visual axis in a child, and incomplete closure can expose the cornea. (Slide 19)"],
+["In traumatic ptosis, observation before considering surgery lasts:",["2 weeks","6 months","2 years","There is no waiting period"],1,"Six months, since some cases recover without surgery. (Slide 19)"],
+["A chalazion is:",["An acute abscess of a gland of Zeis","Focal inflammation in the tarsus from meibomian gland obstruction","Inward turning of the lid margin","An eyelid carcinoma"],1,"It is a focal inflammation, not an acute infection. (Slide 20)"],
+["A stye (external hordeolum) is an abscess of the:",["Meibomian gland","Lacrimal gland","Gland of Krause","Gland of Zeis"],3,"It sits on the lid margin. An internal hordeolum is a meibomian gland abscess. (Slide 20)"],
+["A hordeolum usually involves which organism?",["Staphylococcus","Herpes simplex","Chlamydia only","Candida"],0,"It's an acute bacterial infection, usually Staphylococcus. (Slide 20)"],
+["A hordeolum can occasionally evolve into:",["Ectropion","Entropion","Preseptal cellulitis","Ptosis"],2,"The infection can spread into the tissues in front of the orbital septum. (Slide 20)"],
+["The critical sign of a chalazion is:",["A well-defined subcutaneous eyelid nodule, visible or palpable","Outward turning of the lid margin","Inward turning of the lid margin","Pupil dilation"],0,"The other signs are blocked meibomian orifices, swelling, erythema and tenderness. (Slide 21)"],
+["Which is on the differential diagnosis for chalazion?",["Retinal tear","Sebaceous gland carcinoma","Keratoconus","Cataract"],1,"Preseptal cellulitis, sebaceous gland carcinoma and pyogenic granuloma. A lump that doesn't resolve may be malignant. (Slide 22)"],
+["Slit-lamp examination in suspected chalazion evaluates meibomian glands for:",["Drusen","Neovascularisation","Inspissation","Cells and flare"],2,"Thickened, blocked secretions. The lids are also everted to rule out other causes. (Slide 23)"],
+["First-line chalazion treatment is:",["Warm compress, 10 minutes four times daily, with light massage","Ice for 1 hour","Immediate excision","Atropine drops"],0,"Warm compresses soften the secretions and encourage drainage. (Slide 24)"],
+["Which topical antibiotic is given for a draining lesion or associated blepharitis?",["Timolol","Bacitracin or erythromycin ointment b.i.d","Atropine","Pilocarpine"],1,"The others aren't antibiotics. (Slide 24)"],
+["Which systemic therapy may be considered for chalazion?",["Amoxicillin 5 g","Prednisolone 100 mg","Doxycycline 100 mg b.i.d","Paracetamol only"],2,"Doxycycline has antibacterial and anti-inflammatory action. (Slide 24)"],
+["Incision and curettage is performed if a chalazion has not resolved after:",["3 days","3–4 weeks of appropriate medical therapy","1 year","It is never done"],1,"After a trial of 3–4 weeks of medical therapy. (Slide 25)"],
+["Ectropion is:",["Sagging or outward turning of the lid margin","Inward turning of the lid margin","Lid retraction in thyroid disease","Involuntary lid spasm"],0,"Entropion is the inward-turning version. (Slide 26)"],
+["Ectropion most often affects the:",["Upper eyelids only","Lower eyelids","Medial canthus only","Brow"],1,"One or both lower lids, though the upper lid can be affected too. (Slide 26)"],
+["Ectropion symptoms include:",["Flashes of light","Diplopia","Tearing and irritation, or none at all","Severe pain only"],2,"The patient may also be asymptomatic. (Slide 26)"],
+["Ectropion signs other than the outward-turned margin include:",["SPK, conjunctival injection, thickening, keratinization","Disc oedema","Hyphaema","Cataract"],0,"These result from chronic conjunctival exposure and dryness. (Slide 27)"],
+["Paralytic ectropion is due to:",["Aging","Contact dermatitis","Third nerve palsy","Seventh nerve palsy"],3,"The orbicularis oculi is supplied by the seventh nerve. (Slide 28)"],
+["Involutional ectropion is due to:",["A chemical burn","Aging","Eczema","Herniated orbital fat"],1,"Involutional means age-related lid laxity. (Slide 28)"],
+["Cicatricial ectropion can follow:",["A chemical burn, surgery, laceration scar or skin disease such as eczema","Seventh nerve palsy","Aging alone","Contact dermatitis"],0,"Scarring pulls the lid out. Contact dermatitis is the allergic cause. (Slide 28)"],
+["Congenital ectropion is seen in:",["Facial dysmorphic syndromes such as Treacher-Collins","Myasthenia gravis","Horner syndrome","Trachoma"],0,"(Slide 28)"],
+["Exposure keratopathy in ectropion is first treated with:",["Steroid drops alone","Lubricating agents","Atropine","A week of patching"],1,"Lubricants protect the exposed cornea. A warm compress and antibiotic ointment treat the inflamed margin. (Slide 30)"],
+["Definitive treatment of ectropion requires:",["Eye drops","Warm compresses","Taping","Surgery"],3,"Taping is only a temporary measure. (Slide 31)"],
+["Ectropion with corneal or conjunctival exposure is re-examined in:",["1–2 weeks","1 day","6 months","1 year"],0,"To check that treatment is working. Otherwise follow-up isn't urgent. (Slide 31)"],
+["Entropion is:",["Outward turning of the lid margin","Inward turning of the lid margin","A drooping upper lid","A lid margin tumour"],1,"Ectropion is the outward-turning version. (Slide 32)"],
+["Entropion symptoms include:",["Foreign body sensation, tearing and redness","Floaters","Colour loss","Night blindness"],0,"The lashes rub on the globe, causing irritation. (Slide 32)"],
+["The critical sign of entropion is:",["A lid margin turning inward and pushing normal lashes onto the globe","A nodule in the lid","Outward turning of the margin","An abnormal pupil"],0,"The lashes are normal, but the lid position pushes them onto the eye. That separates it from trichiasis. (Slide 33)"],
+["Severe entropion can lead to:",["Corneal thinning and ulceration","Retinal tear","Optic neuritis","Lens subluxation"],0,"Constant lash contact damages the cornea. (Slide 33)"],
+["Cicatricial entropion is due to:",["Aging","Conjunctival scarring, e.g., from cicatricial pemphigoid, Stevens-Johnson syndrome or trachoma","Ocular irritation only","Congenital syndromes only"],1,"Scarring on the inner lid surface pulls the margin inward. (Slide 34)"],
+["Spastic entropion may follow:",["Surgical trauma, ocular irritation or blepharospasm","Aging","Trachoma","Chemical burn scarring"],0,"Aging causes involutional entropion, and scarring causes cicatricial entropion. (Slide 34)"],
+["Which provides immediate bedside correction of spastic entropion?",["Warm compress only","A Quickert suture","Enucleation","Observation for 6 months"],1,"A Quickert suture can be placed at the bedside or in the office to correct the lid position straight away. (Slide 36)"]
+];
+var app=document.getElementById("app"),order,i,end,tmr,active=false,t0,picks=[],sw=0,nm="";
+function hs(t){var x=5381;for(var k=0;k<t.length;k++){x=((x<<5)+x+t.charCodeAt(k))>>>0;}return x;}
+function shuffle(a){for(var x=a.length-1;x>0;x--){var j=Math.floor(Math.random()*(x+1)),t=a[x];a[x]=a[j];a[j]=t;}return a;}
+function sget(){try{return JSON.parse(localStorage.getItem(SK));}catch(e){return null;}}
+function sset(v){try{localStorage.setItem(SK,JSON.stringify(v));}catch(e){}}
+function p2(n){return String(n).padStart(2,"0");}
+function mmss(ms){var s=Math.max(0,Math.floor(ms/1000));return p2(Math.floor(s/60))+":"+p2(s%60);}
+function gate(){
+ var s=sget();
+ if(s&&s.done){showResult(s,false);return;}
+ if(s&&s.started){app.innerHTML='<h1>Quiz already started</h1><p>This quiz was started on this device and can\'t be restarted. Contact your instructor.</p><p class="mute">Started by '+s.name+'.</p>';return;}
+ app.innerHTML='<h1>Eyelid diseases quiz</h1><p>'+Q.length+' multiple-choice questions, '+(LIMIT/60)+' minutes. One attempt. You can go back and change answers before you submit, and you will see the questions you missed, with explanations, after you finish.</p><label for="nm" class="mute">Your full name</label><input id="nm" autocomplete="name" placeholder="Ama Mensah"><label for="pw" class="mute">Access code from your instructor</label><input id="pw" type="password" autocomplete="off"><div class="err" id="err" role="alert"></div><button id="go">Start quiz</button>';
+ var err=document.getElementById("err");
+ document.getElementById("go").onclick=function(){
+  var name=document.getElementById("nm").value.trim();
+  if(!name){err.textContent="Enter your name first.";return;}
+  if(hs(document.getElementById("pw").value.trim().toLowerCase())!==CH){err.textContent="That access code isn't right. Check it and try again.";return;}
+  begin(name);
+ };
+}
+function begin(name){
+ var idx=[];for(var k=0;k<Q.length;k++){idx.push(k);}
+ order=shuffle(idx).map(function(n){var o=Q[n][1].map(function(t,j){return {t:t,o:j};});return {n:n,q:Q[n][0],opts:shuffle(o)};});
+ picks=[];for(var z=0;z<Q.length;z++){picks.push(-1);}
+ i=0;sw=0;active=true;nm=name;t0=Date.now();end=t0+LIMIT*1000;
+ sset({started:t0,name:name});
+ tmr=setInterval(function(){var el=document.getElementById("tm"),l=end-Date.now();if(el){el.textContent=mmss(l);}if(l<=0){finish();}},1000);
+ ask();
+}
+function head(){
+ var d=0;for(var k=0;k<picks.length;k++){if(picks[k]>=0){d++;}}
+ return {done:d,html:'<div class="top"><span>'+d+' of '+Q.length+' answered</span><span>Time left <b id="tm">'+mmss(end-Date.now())+'</b></span></div><div class="bar"><i style="width:'+Math.round(d/Q.length*100)+'%"></i></div>'};
+}
+function ask(){
+ var d=order[i],h=head().html;
+ h+='<p class="mute">Question '+(i+1)+' of '+Q.length+'</p><p class="q">'+d.q+'</p>';
+ for(var k=0;k<d.opts.length;k++){h+='<button class="opt'+(picks[i]===k?' sel':'')+'" data-k="'+k+'">'+d.opts[k].t+'</button>';}
+ h+='<div class="row">'+(i>0?'<button id="bk" class="alt">Back</button>':'')+'<button id="nx">'+(i<Q.length-1?'Next':'Review')+'</button></div><button id="all" class="alt">All questions</button><p class="mute" style="margin-top:14px">Leaving this tab is recorded.</p>';
+ app.innerHTML=h;
+ var o=app.querySelectorAll(".opt");
+ for(var n=0;n<o.length;n++){o[n].onclick=function(){picks[i]=+this.getAttribute("data-k");ask();};}
+ var bk=document.getElementById("bk");if(bk){bk.onclick=function(){i--;ask();};}
+ document.getElementById("nx").onclick=function(){if(i<Q.length-1){i++;ask();}else{overview();}};
+ document.getElementById("all").onclick=overview;
+}
+function overview(){
+ var hd=head(),left=Q.length-hd.done,conf=false;
+ var h=hd.html+'<h1 style="font-size:24px">All questions</h1><p class="mute">Filled numbers are answered. Outlined numbers are not answered yet. Tap a number to open that question.</p><div class="grid">';
+ for(var k=0;k<Q.length;k++){h+='<button class="qn'+(picks[k]>=0?' done':'')+(k===i?' cur':'')+'" data-q="'+k+'" aria-label="Question '+(k+1)+(picks[k]>=0?', answered':', not answered')+'">'+(k+1)+'</button>';}
+ h+='</div><div class="err" id="err" role="alert"></div><div class="row"><button id="rt" class="alt">Back to question</button><button id="sub">Submit quiz</button></div>';
+ app.innerHTML=h;
+ var g=app.querySelectorAll(".qn");
+ for(var n=0;n<g.length;n++){g[n].onclick=function(){i=+this.getAttribute("data-q");ask();};}
+ document.getElementById("rt").onclick=ask;
+ document.getElementById("sub").onclick=function(){
+  if(left>0&&!conf){conf=true;document.getElementById("err").textContent=left+" question"+(left>1?"s are":" is")+" not answered. Tap Submit quiz again to submit anyway.";return;}
+  finish();
+ };
+}
+function finish(){
+ if(!active){return;}
+ active=false;clearInterval(tmr);
+ var score=0,rev=[],answered=0;
+ for(var k=0;k<order.length;k++){
+  var e=order[k],c=picks[k]>=0?e.opts[picks[k]]:null,d=Q[e.n];
+  if(c){answered++;}
+  if(c&&c.o===d[2]){score++;}else{rev.push([e.n+1,d[0],c?c.t:"Not answered",d[1][d[2]],d[3]]);}
+ }
+ rev.sort(function(a,b){return a[0]-b[0];});
+ var used=mmss(Math.min(Date.now(),end)-t0);
+ var code=nm+" | "+score+"/"+Q.length+" | tab leaves: "+sw+" | time used: "+used;
+ var s={started:t0,name:nm,done:1,score:score,total:Q.length,code:code,review:rev};
+ sset(s);
+ showResult(s,true);
+ var st=document.getElementById("st"),fail="Couldn't send automatically. Send the result code below to your instructor.";
+ if(WKEY.indexOf("PASTE")===0){st.textContent=fail;return;}
+ st.textContent="Sending your result…";
+ var missed=rev.map(function(r){return r[0];}).join(", ");
+ try{fetch("https://api.web3forms.com/submit",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify({access_key:WKEY,subject:"Eyelid quiz result: "+nm,name:nm,score:score+" / "+Q.length,answered:answered,missed_question_numbers:missed||"none",tab_leaves:sw,time_used:used})}).then(function(r){return r.json();}).then(function(d){st.textContent=d&&d.success?"Your result was sent to your instructor.":fail;}).catch(function(){st.textContent=fail;});}catch(e){st.textContent=fail;}
+}
+function showResult(s,fresh){
+ var h='<h1>You scored '+s.score+' / '+s.total+'</h1><p class="mute" id="st">'+(fresh?"":"Your result was already submitted on this device.")+'</p>';
+ var r=s.review||[];
+ if(r.length){
+  h+='<h2 style="font:500 22px Fraunces,Georgia,serif;margin:18px 0 6px">Questions to review ('+r.length+')</h2><p class="mute">These are the questions you got wrong or left unanswered, with the correct answer and why.</p>';
+  for(var k=0;k<r.length;k++){
+   h+='<div class="rv"><p class="rq">'+r[k][1]+'</p><p class="no">Your answer: '+r[k][2]+'</p><p class="yes">Correct answer: '+r[k][3]+'</p><p><b>Why:</b> '+r[k][4]+'</p></div>';
+  }
+ }else{h+='<p>You answered every question correctly. Nothing to review.</p>';}
+ h+='<p>Your result code:</p><div class="code">'+s.code+'</div><button id="cp" class="alt">Copy result code</button><div class="err" id="cerr"></div><a class="btn" href="quit.html">Exit exam</a>';
+ app.innerHTML=h;
+ window.scrollTo(0,0);
+ document.getElementById("cp").onclick=function(){var m=document.getElementById("cerr");try{navigator.clipboard.writeText(s.code).then(function(){m.textContent="Copied.";},function(){m.textContent="Select the code above and copy it.";});}catch(e){m.textContent="Select the code above and copy it.";}};
+}
+document.addEventListener("visibilitychange",function(){if(active&&document.hidden){sw++;}});
+document.addEventListener("contextmenu",function(e){if(active){e.preventDefault();}});
+document.addEventListener("copy",function(e){if(active){e.preventDefault();}});
+gate();
+</script>
+</body>
+</html>
